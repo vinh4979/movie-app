@@ -2,20 +2,20 @@ import React, { useEffect, useRef, useState } from 'react'
 import * as S from './Carousel.style'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 import { banner } from 'src/Utils/CarouselBanner'
+import { AnimatePresence } from 'framer-motion'
 
 export default function Carousel() {
   const [count, setCount] = useState(0)
   const gallery = banner
 
   const currentGallery = gallery[count]
-  console.log(count)
 
   const callback = () => {
     setCount(count + 1)
     if (count > gallery.length - 2) setCount(0)
   }
 
-  const [isRunning, setIsRunning] = useState(false)
+  const [isRunning, setIsRunning] = useState(true)
   function useInterval(callback, delay) {
     const savedCallback = useRef()
     useEffect(() => {
@@ -42,28 +42,37 @@ export default function Carousel() {
 
   const handleprevButton = () => {
     setCount(count - 1)
-    if (count < gallery.length - 2) setCount(2)
+    if (count < gallery.length - 4) setCount(4)
   }
 
   return (
     <S.Container>
-      <S.ContainerLeft img={currentGallery.hinhAnh}>
-        <S.CaptionContainer>
-          <S.Caption>
-            <S.BoxContain>
-              <S.Name>{currentGallery.tenPhim}</S.Name>
-            </S.BoxContain>
-            <S.Title>{currentGallery.moTa.slice(0, 200)}...</S.Title>
-            {/* button next and prevar */}
-            <S.ButtonNext onClick={handleNextButton}>
-              <AiOutlineRight />
-            </S.ButtonNext>
-            <S.ButtonPrev onClick={handleprevButton}>
-              <AiOutlineLeft />
-            </S.ButtonPrev>
-          </S.Caption>
-        </S.CaptionContainer>
-      </S.ContainerLeft>
+      <AnimatePresence>
+        <S.ContainerLeft
+          key={currentGallery.hinhAnh}
+          src={currentGallery.hinhAnh}
+          initial={{ opacity: 0.5 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          img={currentGallery.hinhAnh}
+        >
+          <S.CaptionContainer>
+            <S.Caption>
+              <S.BoxContain>
+                <S.Name>{currentGallery.tenPhim}</S.Name>
+              </S.BoxContain>
+              <S.Title>{currentGallery.moTa.slice(0, 200)}...</S.Title>
+              {/* button next and prevar */}
+              <S.ButtonNext onClick={handleNextButton}>
+                <AiOutlineRight />
+              </S.ButtonNext>
+              <S.ButtonPrev onClick={handleprevButton}>
+                <AiOutlineLeft />
+              </S.ButtonPrev>
+            </S.Caption>
+          </S.CaptionContainer>
+        </S.ContainerLeft>
+      </AnimatePresence>
       <S.ContainerRight>
         {gallery.map((item, index) => {
           return (

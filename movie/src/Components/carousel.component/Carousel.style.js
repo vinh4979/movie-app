@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -6,7 +7,7 @@ export const Container = styled.div`
   width: 100%;
   height: 67vh;
 `
-export const ContainerLeft = styled.div`
+export const ContainerLeft = styled(motion.div)`
   position: relative;
   display: block;
   width: 75%;
@@ -90,6 +91,7 @@ export const ButtonPrev = styled.button`
   left: 0%;
   top: 50%;
   transform: translate(50%, -50%);
+  background-color: none;
   &:hover {
     background-color: yellow;
   }
