@@ -1,11 +1,11 @@
 import Carousel from './Components/carousel.component/Carousel'
-import Framer from './Components/FramerMotion/Framer'
+import Carousel2 from './Components/Carousel2.component/Carousel2'
 
 function App() {
   return (
     <div>
       <Carousel />
-      <Framer />
+      <Carousel2 />
     </div>
   )
 }
